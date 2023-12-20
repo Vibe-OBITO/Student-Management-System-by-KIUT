@@ -1,3 +1,4 @@
+
 body {
     background: #fff;
     color: #2f3138;
@@ -46,19 +47,41 @@ h6 {
     }
 }
 
-
-/* Prelaoder */
-
 #preloader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    background: #fff url("../img/preloader.svg") no-repeat center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff; /* Цвет фона прелоадера */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.education-loader {
+  text-align: center;
+}
+
+.education-loader img {
+  width: 80px; /* Размер иконки образования */
+  height: 80px;
+  animation: bounce 2s ease-in-out infinite; /* Анимация подпрыгивания */
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
 
 
 /* Back to top button */
@@ -1736,4 +1759,70 @@ th {
 
 tr:hover {
     background-color: #e8f4f8;
+}
+/*Парнеры*/
+#partners h2 {
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold; /* Сделать заголовок полужирным */
+}
+
+.partners-grid {
+  display: flex;
+  flex-wrap: wrap; /* Позволяет элементам переноситься на следующую строку */
+  justify-content: center; /* Центрирование элементов по горизонтали */
+  align-items: center; /* Центрирование элементов по вертикали */
+  gap: 20px; /* Расстояние между логотипами партнеров */
+}
+
+#partners {
+  background-color: #e9ecef;
+  padding: 20px;
+  padding-bottom: 50px; /* Увеличение нижнего отступа */
+}
+
+.partner img {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  object-position: center;
+  margin-bottom: 20px; /* Добавление отступа снизу каждого логотипа */
+  display: block; /* Элемент рассматривается как блочный */
+}
+/* Общие стили для кнопки Расписание */
+.schedule-link {
+  display: inline-block;
+  padding: 8px 16px; /* Уменьшил отступы для более компактного отображения */
+  margin: 10px;
+  background-color: #ff4757;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 20px; /* Уменьшил радиус границы для более современного вида */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Стили при наведении */
+.schedule-link:hover {
+  background-color: #ffffff;
+  color: #ff4757;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Стили при фокусе */
+.schedule-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff6b6b;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media only screen and (max-width: 600px) {
+  .schedule-link {
+    padding: 10px 20px; /* Вернул немного большие отступы для лучшего касания на мобильных устройствах */
+    font-size: 14px; /* Уменьшил размер шрифта для более легкого восприятия на маленьких экранах */
+  }
 }

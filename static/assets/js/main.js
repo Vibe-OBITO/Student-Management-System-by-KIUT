@@ -212,3 +212,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Какой-то JavaScript код, который будет выполнен после загрузки DOM
 });
+window.addEventListener('load', function() {
+  // Установить таймаут на 3 секунды (3000 миллисекунд) после загрузки страницы
+  setTimeout(function() {
+    var preloader = document.getElementById('preloader');
+    if (preloader) {
+      // Плавное исчезновение прелоадера
+      preloader.style.opacity = '0';
+      preloader.style.transition = 'opacity 0.5s ease';
+
+      // Удалить прелоадер из DOM после завершения анимации исчезновения
+      setTimeout(function() {
+        preloader.remove();
+      }, 500); // 500 миллисекунд для завершения анимации исчезновения
+    }
+  }, 2000); // 3000 миллисекунд для отображения прелоадера
+});
