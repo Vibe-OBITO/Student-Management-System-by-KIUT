@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Меню с расписанием</title>
+    <!-- Подключение Bootstrap CSS для dark mode -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Настройки для dark mode */
+        body {
+            background-color: #121212; /* Цвет фона */
+            color: #ffffff; /* Цвет текста */
+        }
+        .navbar {
+            background-color: #343a40; /* Цвет навигационной панели */
+        }
+        .list-group-item {
+            background-color: #343a40; /* Цвет фона элементов списка */
+        }
+        .list-group-item:hover {
+            background-color: #495057; /* Цвет фона элементов списка при наведении */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Расписание</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <input id="groupSearch" class="form-control" type="text" placeholder="Поиск группы">
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Выбор курса -->
+    <div class="btn-group role="group" data-bs-toggle="buttons">
+        <button type="button" class="btn btn-secondary" data-course="Курс 1">Курс 1</button>
+        <button type="button" class="btn btn-secondary" data-course="Курс 2">Курс 2</button>
+        <button type="button" class="btn btn-secondary" data-course="Курс 3">Курс 3</button>
+        <button type="button" class="btn btn-secondary" data-course="Курс 4">Курс 4</button>
+        <button type="button" class="btn btn-secondary" data-course="Магистратура">Магистратура</button>
+    </div>
+
+    <!-- Выбор формы обучения -->
+    <div class="btn-group role="group" data-bs-toggle="buttons">
+        <button type="button" class="btn btn-secondary" data-form="Заочное">Заочное</button>
+        <button type="button" class="btn btn-secondary" data-form="Очное">Очное</button>
+        <button type="button" class="btn btn-secondary" data-form="Дистанционное">Дистанционное</button>
+    </div>
+
+    <!-- Список групп -->
+    <ul id="groupList" class="list-group">
+        <li class="list-group-item group-item" data-bs-toggle="modal" data-bs-target="#groupModal" data-image="https://ru.smartsheet.com/sites/default/files/2-DailyScheduleTemplateExcel-RU.png" data-course="Курс 1" data-form="Заочное">ISE 50A</li>
+        <li class="list-group-item group-item" data-bs-toggle="modal" data-bs-target="#groupModal" data-image="https://ru.smartsheet.com/sites/default/files/2-DailyScheduleTemplateExcel-RU.png" data-course="Курс 2" data-form="Очное">ISE 58B</li>
+        <li class="list-group-item group-item" data-bs-toggle="modal" data-bs-target="#groupModal" data-image="https://ru-smartsheet.com/sites/default/files/2-DailyScheduleTemplateExcel-RU.png" data-course="Курс 3" data-form="Очное">ISE 54R</li>
+        <li class="list-group-item group-item" data-bs-toggle="modal" data-bs-target="#groupModal" data-image="https://ru.smartsheet.com/sites/default/files/2-DailyScheduleTemplateExcel-RU.png" data-course="Курс 4" data-form="Заочное">ISE 56R</li>
+        <li class="list-group-item group-item" data-bs-toggle="modal" data-bs-target="#groupModal" data-image="https://ru.smartsheet.com/sites/default/files/2-DailyScheduleTemplateExcel-RU.png" data-course="Магистратура" data-form="Дистанционное">Группа Магистратура</li>
+    </ul>
+
+    <!-- Модальное окно для отображения фотографии группы на весь экран -->
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="groupModalLabel">Группа 1</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="groupImage" src="" class="img-fluid" alt="Фотография группы">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap JS (необходим для работы модального окна и компонента поиска) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Обработчик события при открытии модального окна
+        $('#groupModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var group = button.text();
+            var imageSrc = button.data('image');
+            $('#groupModalLabel').text(group);
+            $('#groupImage').attr('src', imageSrc);
+        });
+
+        // Обработчик события при вводе текста в поле поиска
+        $('#groupSearch').on('input', function() {
+            var searchQuery = $(this).val().toLowerCase();
+            $('#groupList .group-item').each(function() {
+                var group = $(this).text().toLowerCase();
+                if (group.includes(searchQuery)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Обработчик события при выборе курса
+        $('.btn-group button[data-course]').click(function() {
+            var selectedCourse = $(this).data('course');
+            // Отобразить только группы для выбранного курса
+            $('#groupList .group-item').each(function() {
+                var course = $(this).data('course');
+                if (course === selectedCourse) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Обработчик события при выборе формы обучения
+        $('.btn-group button[data-form]').click(function() {
+            var selectedForm = $(this).data('form');
+            // Отобразить только группы для выбранной формы обучения
+            $('#groupList .group-item').each(function() {
+                var form = $(this).data('form');
+                if (form === selectedForm) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

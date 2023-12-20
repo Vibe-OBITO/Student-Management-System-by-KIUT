@@ -1,102 +1,89 @@
 {% extends 'base.html' %}
+
 {% block title %}
 Add Students
 {% endblock title %}
 
-
-
 {% block body %}
- <h3 class="text-center"><span>Добавить данные студента</span> </h3>
-  
+<h3 class="text-center"><span>Добавить данные студента</span></h3>
+
 {% with messages=get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-
-<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-    {{message}}
-
-
-</div>
-  {% endfor %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
   {% endif %}
-  {% endwith %}
+{% endwith %}
+
 <br>
+
 <div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <form action="/addstudent" method="post">
+        <div class="form-group">
+          <label for="rollno">ID Number</label>
+          <input type="text" class="form-control" name="rollno" id="rollno" required>
+        </div>
 
-<div class="row">
+        <div class="form-group">
+          <label for="sname">Имя студента</label>
+          <input type="text" class="form-control" name="sname" id="sname" required>
+        </div>
 
-<div class="col-md-4"></div>
-<div class="col-md-4">
+        <div class="form-group">
+          <label for="sem">Семест</label>
+          <input type="number" class="form-control" name="sem" id="sem" required>
+        </div>
 
-<form action="/addstudent" method="post">
-<div class="form-group">
+        <div class="form-group">
+          <label for="gender">Пол</label>
+          <select class="form-control" id="gender" name="gender" required>
+            <option selected disabled>Выберите пол</option>
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
+            <option value="other">Другое</option>
+          </select>
+        </div>
 
-<label for="rollno">ID Number</label>
-<input type="text" class="form-control" name="rollno" id="rollno">
+        <div class="form-group">
+          <label for="branch">Факультет</label>
+          <select class="form-control" id="branch" name="branch" required>
+            <option selected disabled>Выберите Факультет</option>
+            {% for d in dept %}
+              <option value="{{ d.branch }}">{{ d.branch }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="num">Номер телефона</label>
+          <input type="number" class="form-control" name="num" id="num" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Адресс</label>
+          <textarea class="form-control" name="address" id="address" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-danger btn-sm btn-block">Добавить запись</button>
+      </form>
+      <br>
+      <br>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
 </div>
-<br>
-<div class="form-group">
-
-<label for="sname">Имя студента</label>
-<input type="text" class="form-control" name="sname" id="sname">
-</div>
-<br>
-<div class="form-group">
-
-<label for="sem">Семест</label>
-<input type="number" class="form-control" name="sem" id="sem">
-</div>
-<br>
-<div class="form-group">                          
-<select  class="form-control" id="gender" name="gender"  required>
-        <option selected>Выберите пол</option>
-    
-        <option value="male">Мужской</option>
-        <option value="female">Женский</option>
-       <option value="female">Другое</option>
-       
-      </select>
- </div>
-<br>
-
-<div class="form-group">                          
-<select class="form-control" id="branch" name="branch"  required>
-        <option selected>Выберите Факультет</option>
-        {% for d in dept  %}
-        <option value="{{d.branch}}">{{d.branch}}</option>
-        {% endfor %}
-      </select>
- </div>
-<br>
-<div class="form-group">
-
-<label for="email">Email</label>
-<input type="email" class="form-control" name="email" id="email">
-</div>
-<br>
-<div class="form-group">
-<label for="num">Номер телефона</label>
-<input type="number" class="form-control" name="num" id="num">
-</div>
-<br>
-
-<div class="form-group">
-<label for="address">Адресс</label>
-<textarea class="form-control" name="address" id="address"></textarea>
-</div>
-<br>
-  
-  <button type="submit" class="btn btn-danger btn-sm btn-block">Добавить запись</button>
-</form>
-<br>
-<br>
-
-</div>
-
-<div class="col-md-4"></div>
-
-</div></div>
-
-
 
 {% endblock body %}

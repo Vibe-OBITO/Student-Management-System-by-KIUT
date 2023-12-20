@@ -1,54 +1,37 @@
 {% extends 'base.html' %}
+
 {% block title %}
-Student Details
-{% endblock title %}
-
-
+Оценки Студентов
+{% endblock %}
 
 {% block body %}
- <h3 class="text-center"><span>Метки</span> </h3>
-  
-{% with messages=get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-
-<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-    {{message}}
-
-
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Оценки Студентов</h2>
+    {% for student in students_marks %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Студент: {{ student.sname }} ( ID: {{ student.rollno }})</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Семестр: {{ student.sem }}</h6>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Предмет</th>
+                            <th scope="col">Оценка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject in student.marks %}
+                            <tr>
+                                <td>{{ subject.subject_name }}</td>
+                                <td>{{ subject.mark }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
 </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
-<br>
-
-
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">SID</th>
-      <th scope="col">ID NUMBER</th>
-      <th scope="col">Имя студента</th>
-      <th scope="col">Семестр</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for post in query %}
-    <tr>
-      <th scope="row">{{post.id}}</th>
-      <td>{{post.rollno}}</td>
-      <td>{{post.sname}}</td>
-      <td>{{post.sem}}</td>
-    <td><a href="/addmark/{{post.rollno}}"><button class="btn btn-primary">Добавлять </button> </a> </td>
-    </tr>
-{% endfor %}
-  
-  </tbody>
-</table>
-
-
-
-
-
-
-{% endblock body %}
+{% endblock %}

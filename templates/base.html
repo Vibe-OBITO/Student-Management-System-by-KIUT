@@ -2,23 +2,10 @@
 <html lang="en">
 
 <head>
-<!-- Other head content -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
- <style>
-    @keyframes fade {
-      from { opacity: 1; }
-      to { opacity: 0.5; }
-    }
-    .fade-in {
-      animation-name: fade;
-      animation-duration: 2s;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-direction: alternate; /* Переключение между затуханием и появлением */
-    }
-  </style>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+
 
   <title>{% block title %}
   {% endblock title %}</title>
@@ -39,8 +26,15 @@
   <!-- Template Main CSS File -->
   <link href="static/assets/css/style.css" rel="stylesheet">
 
- 
+
 </head>
+
+
+<div id="preloader">
+  <div class="education-loader">
+    <img src="static\photos\иконка.png" alt="Education Icon">
+  </div>
+</div>
 
 <body>
 
@@ -53,49 +47,81 @@
         <ul class="nav-menu">
           <li class="{% block home %}
           {% endblock home %}"><a href="/">Главная</a></li>
-         
+
  <li><a href="/addstudent">Студенты</a></li>
- <li><a href="/marks">Метки</a></li>
+ <li><a href="/marks">Marks</a></li>
  <li><a href="/addattendance">Посещаемость</a></li>
  <li><a href="/department">Отделение</a></li>
  <li><a href="/triggers">Рекорды</a></li>
- <li><a href="/studentdetails">Сведения о студенте</a></li>
+ <li><a href="/studentdetails">Сведения о студентеs</a></li>
  <li><a href="/search">Поиск</a></li>
-       
-    
-          
-   
+
 
     {% if current_user.is_authenticated  %}
-          <li class="buy-tickets"><a href="">Добро пожаловать {{current_user.username}}</a></li>
+          <li class="buy-tickets"><a href="">ДОБРО ПОЖАЛОВАТЬ {{current_user.username}}</a></li>
             <li class="buy-tickets"><a href="/logout">Выйти</a></li>
           {% else %}
           <li class="buy-tickets"><a href="/signup">Войти</a></li>
-        
+
           {% endif %}
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
+<nav>
+  <ul>
+    <!-- Остальные пункты меню -->
+    ...
+
+<li class="nav-item"><a href="{{ url_for('schedule') }}" class="nav-link schedule-link">Расписание</a></li>
+
+
+  </ul>
+</nav>
+
+
   </header><!-- End Header -->
 
   <!-- ======= Intro Section ======= -->
 <section id="intro">
-  <div class="intro-container" data-aos-delay="100">
-    <div class="fade-in" style="color: #FF6B6B; text-shadow: 2px 2px 4px #000000; font-family: 'Dancing Script', cursive;">
-      <span style="display: block; margin-left: 0px; font-size: 5em;">STUDENT</span>
-      <span style="display: block; margin-left: 20px; font-size: 5em;">MANAGEMENT</span>
-      <span style="display: block; margin-left: 40px; font-size: 5em;">SYSTEM</span>
-      <span style="display: block; margin-left: 60px; font-size: 5em;">by</span>
-      <span style="display: block; margin-left: 80px; font-size: 5em;">KIUT</span>
+    <div class="intro-container" data-aos-delay="100">
+      <h1 class="mb-4 pb-0">STUDENT MANAGEMENT SYSTEM</h1>
     </div>
+</section>
+
+
+<!-- Partners Section -->
+<section id="partners">
+  <h2>Наши партнеры</h2>
+  <div class="partners-grid">
+    <!-- Партнер 1 -->
+    <a href="https://it-park.uz/" class="partner">
+      <img src="https://api.logobank.uz/media/logos_png/IT_park-01.png" alt="IT PARK" />
+    </a>
+    <!-- Партнер 2 -->
+    <a href="https://www.iu.org/" class="partner">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/IU_International_Hochschule_Logo_2021_inglese.png" alt="IU" />
+    </a>
+       <!-- Партнер 3 -->
+    <a href="https://uzbektourism.uz/en" class="partner">
+      <img src="https://uznature.uz/archive/img/logo-new.png" alt="Uzbekton" />
+    </a>
+       <!-- Партнер 4 -->
+    <a href="https://akfagroup.com/" class="partner">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Akfa_logo.png" alt="Akfagroup" />
+    </a>
+       <!-- Партнер 5 -->
+    <a href="https://oxbridgeschool.uz/" class="partner">
+      <img src="https://oxbridgeschool.uz/wp-content/uploads/2023/08/logo-1.svg" alt="oxbridgeschool" />
+    </a>
+    <!-- Повторить для других партнеров -->
   </div>
 </section>
-<main id="main">
-  <!-- Content goes here -->
-</main>
+
+  <main id="main">
+
 
   {% block body %}
-  
+      {% include 'chat.html' %}
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
 {% for category, message in messages %}
@@ -125,11 +151,9 @@
   <script src="static/assets/vendor/superfish/superfish.min.js"></script>
   <script src="static/assets/vendor/hoverIntent/hoverIntent.js"></script>
   <script src="static/assets/vendor/aos/aos.js"></script>
-  
+
 
   <!-- Template Main JS File -->
   <script src="static/assets/js/main.js"></script>
 
 </body>
-
-</html>

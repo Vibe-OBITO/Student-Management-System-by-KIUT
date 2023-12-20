@@ -35,8 +35,7 @@
       <th scope="col">EMAIL</th>
       <th scope="col">Номер</th>
       <th scope="col">Адресс</th>
-      <th scope="col">Изменить</th>
-      <th scope="col">Удалить</th>
+
 
     </tr>
   </thead>
@@ -52,8 +51,7 @@
       <td>{{post.email}}</td>
       <td>{{post.number}}</td>
       <td>{{post.address}}</td>
-    <td><a href="/edit/{{post.id}}"><button class="btn btn-primary">Изменить </button> </a> </td>
-    <td><a href="/delete/{{post.id}}"><button onclick="return confirm('Are you sure to Delete data');" class="btn btn-danger">Удалить </button> </a> </td>
+    <td>{% if is_super_user %}<a href="/edit/{{post.id}}"><button class="btn btn-primary">Изменить </button></a><a href="/delete/{{post.id}}" onclick="return confirm('Are you sure to Delete data');"><button class="btn btn-danger">Удалить </button></a>{% endif %}</td>
     </tr>
 {% endfor %}
   

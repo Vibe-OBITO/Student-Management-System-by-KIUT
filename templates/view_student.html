@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <a href="{{ url_for('download_profile_pdf', rollno=student.rollno) }}" class="btn btn-primary">Download PDF</a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h3 class="text-center">Student Profile</h3>
+
+        <!-- Display Student Information -->
+        <div class="card">
+            <div class="card-header">
+                Student Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if student.photo %}
+                            <img src="{{ url_for('static', filename='photos/' + student.photo) }}" class="img-fluid" alt="Student Photo">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='photos/placeholder.png') }}" class="img-fluid" alt="Placeholder">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <p><strong>ID Number:</strong> {{ student.rollno }}</p>
+                        <p><strong>Name:</strong> {{ student.sname }}</p>
+                        <p><strong>Semester:</strong> {{ student.sem }}</p>
+                        <p><strong>Gender:</strong> {{ student.gender }}</p>
+                        <p><strong>Branch:</strong> {{ student.branch }}</p>
+                        <p><strong>Email:</strong> {{ student.email }}</p>
+                        <p><strong>Phone Number:</strong> {{ student.number }}</p>
+                        <p><strong>Address:</strong> {{ student.address }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Student Marks -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Student Marks
+            </div>
+            <div class="card-body">
+                {% for mark in student.marks %}
+                    <p><strong>{{ mark.subject_name }}:</strong> {{ mark.mark }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Add more sections for other information if needed -->
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+</body>
+</html>
